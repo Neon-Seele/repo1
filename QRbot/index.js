@@ -32,7 +32,7 @@ client.on("messageCreate", function(message) {
   }
 
   else if (command === "qrgen") {
-
+//still can't print on discord, maybe i'll have to use an external service such as google qr, promise object
     message.reply(`This is your QR ${QRcode.toDataURL(args)}. 
     This message had a latency of ${timeTaken}ms.`);
     
