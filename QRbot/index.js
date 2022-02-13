@@ -8,6 +8,9 @@
 
 const Discord = require("discord.js");
 const config = require("./config.json");
+const { text } = require("stream/consumers");
+const { string } = require("yargs");
+const QRcode = require("qrcode")
 
 const client = new Discord.Client({intents: ["GUILDS", "GUILD_MESSAGES"]});
 
@@ -21,10 +24,21 @@ client.on("messageCreate", function(message) {
   const args = commandBody.split(' ');
   const command = args.shift().toLowerCase();
 
+  const timeTaken = Date.now() - message.createdTimestamp;
+
   if (command === "ping") {
-    const timeTaken = Date.now() - message.createdTimestamp;
+    
     message.reply(`Pong! This message had a latency of ${timeTaken}ms.`);
   }
+
+  else if (command === "qrgen") {
+
+    message.reply(`This is your QR ${QRcode.toDataURL(args)}. 
+    This message had a latency of ${timeTaken}ms.`);
+    
+  }
 });
+
+
 
 client.login(config.TOKEN);
